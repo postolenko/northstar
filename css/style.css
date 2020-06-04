@@ -5027,26 +5027,21 @@ opacity: 1;
 .grey_box a:visited {
     border-bottom: 1px solid transparent;
 }
-
 .grey_box a:active,
 .grey_box a.active {
 	border-bottom: 1px solid #0071E3;
 }
-
 .grey_box a:hover {
 	border-bottom: 1px solid #0071E3;
 }
-
 .contact_sect {
 	padding: 22px 0 23px 0;
 }
-
 .contact_sect p {
 	font-size: 18px;
 	line-height: 24px;
 	font-weight: normal;
 }
-
 .contact_sect p a {
 	text-decoration: none;
 	font-size: 18px;
@@ -5074,17 +5069,14 @@ opacity: 1;
     transition-duration: .3s;
     transition-timing-function: ease;
 }
-
 .contact_sect p a:link,
 .contact_sect p a:visited {
     border-bottom: 1px solid transparent;
 }
-
 .contact_sect p a:active,
 .contact_sect p a.active {
 	border-bottom: 1px solid #0071E3;
 }
-
 .contact_sect p a:hover {
 	border-bottom: 1px solid #0071E3;
 }
