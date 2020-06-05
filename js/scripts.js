@@ -1,4 +1,32 @@
+function getDropdownMenuPosition() {
+	var menuName;
+	if(bodyWidth <= 1280) {
+		$("[data-dropdown-menu]").each(function() {
+			menuName = $(this).attr("data-dropdown-menu");
+			$(this).insertAfter($("[data-dropdown-link = '"+menuName+"']"));
+		});
+	} else {
+		$("[data-dropdown-menu]").each(function() {
+			$(this).appendTo(".dropdown_menu_wrapp");
+		});
+	}
+	$(".dropdown_menu").offset({left: 0});
+	$(".dropdown_menu").width($("#subheader").width());
+}
+
+var w = window,
+d = document,
+e = d.documentElement,
+g = d.getElementsByTagName('body')[0],
+bodyWidth = w.innerWidth || e.clientWidth || g.clientWidth;
+
+$(window).resize(function() {
+    bodyWidth = w.innerWidth || e.clientWidth || g.clientWidth;
+    getDropdownMenuPosition();
+});
+
 $(document).ready(function() {
+	getDropdownMenuPosition();
 
 	// Будет нужно на WordPress (а здесь чтобы не было ошибки)
 	if(typeof(window.wp)==='undefined') {
@@ -1402,5 +1430,46 @@ $(document).ready(function() {
 			$(document.body).find('*[data-visibility-hidden]').removeAttr('data-visibility-hidden');
 		}
 	}).resize();
+
+	// ----------------
+
+	$("[data-dropdown-link]").on("click", function(e) {
+		e.preventDefault();
+		var menuName = $(this).attr("data-dropdown-link");
+		$(".dropdown_menu").each(function() {
+			if($(this).is(":visible") && $(this).attr("data-dropdown-menu") != menuName ) {
+				$(this).css({
+					"display" : "none"
+				})
+			}
+		});
+		var dropdownMenu = $("[data-dropdown-menu = '"+menuName+"']");
+		if(dropdownMenu.is(":hidden")) {
+			dropdownMenu.slideDown(300);
+			$(this).addClass("active");
+		} else {
+			dropdownMenu.slideUp(300);
+			$(this).removeClass("active");
+		}
+		dropdownMenu.offset({left:0});
+	});
+
+	$(this).keydown(function(eventObject){
+        if (eventObject.which == 27 &&
+            $(".dropdown_menu").is(":visible") ) {
+                $(".dropdown_menu").slideUp(300);
+				$("[data-dropdown-link]").removeClass("active");
+        }
+    });
+
+    $("*").mouseup(function (e){
+        hide_element = $(".dropdown_menu");
+        if (!hide_element.is(e.target)
+            && hide_element.has(e.target).length === 0
+            && !$(this).hasAttr("data-dropdown-link")) {
+        	hide_element.slideUp(300);
+        	$("[data-dropdown-link]").removeClass("active");
+        }
+    });
 
 });
